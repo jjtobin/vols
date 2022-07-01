@@ -61,12 +61,12 @@ for i in keylist:
               interp='linear',field=image_data['fieldlists'][i])
 
 for i in keylist:
-   os.system('rm -rf VOLS.final.'+i+'.C_band.A.robust.1.0.cont*')
+   os.system('rm -rf VOLS.final.nosc.'+i+'.C_band.A.robust.1.0.cont*')
    tclean(vis=vislist,
        uvrange='>35klambda',
        datacolumn='data',
        field=image_data['fieldlists'][i],phasecenter=image_data['field_centers'][i],
-       imagename='VOLS.modelgen.'+i+'.C_band.A.robust.1.0.cont',
+       imagename='VOLS.final.nosc.'+i+'.C_band.A.robust.1.0.cont',
        imsize=image_data['imsize'], cell=['0.125arcsec'], 
        stokes='I', specmode='mfs', gridder='mosaic', 
        mosweight=False, usepointing=False, pblimit=-0.1, deconvolver='mtmfs',
@@ -78,5 +78,22 @@ for i in keylist:
        pbmask=0.0,dogrowprune=True,minbeamfrac=0.3,sidelobethreshold=2.0,
        noisethreshold=3.75,uvtaper=['0.4arcsec'])
 
+for i in keylist:
+   os.system('rm -rf VOLS.final.'+i+'.C_band.A.robust.1.0.cont*')
+   tclean(vis=vislist,
+       uvrange='>35klambda',
+       datacolumn='corrected',
+       field=image_data['fieldlists'][i],phasecenter=image_data['field_centers'][i],
+       imagename='VOLS.final.'+i+'.C_band.A.robust.1.0.cont',
+       imsize=image_data['imsize'], cell=['0.125arcsec'], 
+       stokes='I', specmode='mfs', gridder='mosaic', 
+       mosweight=False, usepointing=False, pblimit=-0.1, deconvolver='mtmfs',
+       nterms=2, restoration=True, restoringbeam=['0.5arcsec','0.5arcsec','0.0deg'], pbcor=False,
+       weighting='briggs', robust=1.0, npixels=0, niter=40000,
+       threshold=image_data['clean_depth_model'][i], nsigma=0.0, cyclefactor=3.0, interactive=False,
+       fastnoise=True, restart=False, savemodel='none', calcres=True,
+       calcpsf=True, parallel=True,usemask='auto-multithresh',
+       pbmask=0.0,dogrowprune=True,minbeamfrac=0.3,sidelobethreshold=2.0,
+       noisethreshold=3.75,uvtaper=['0.4arcsec'])
 
 
