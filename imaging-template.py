@@ -60,6 +60,9 @@ for i in keylist:
       applycal(vis=vis,calwt=False,applymode='calonly',gaintable=vis+'.g',spwmap=32*[0],
               interp='linear',field=image_data['fieldlists'][i])
 
+
+#tclean call use a clean depth shallower than what is probably desired (using the 'clean_depth_model' entry instead of 'clean_depth'
+#modify if desired
 for i in keylist:
    os.system('rm -rf VOLS.final.nosc.'+i+'.C_band.A.robust.1.0.cont*')
    tclean(vis=vislist,
