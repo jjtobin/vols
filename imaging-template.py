@@ -55,9 +55,10 @@ for vis in vislist:
 for i in keylist:
    #self-calibration
    for vis in vislist:
-      gaincal(vis=vis,caltable=vis+'.g',gaintype='G',calmode='p',refant='ea10',combine='spw',
+      os.system('rm -rf '+vis+'.g')
+      gaincal(vis=vis,caltable=vis+'_'+i+'.g',gaintype='G',calmode='p',refant='ea10,ea23,ea28',combine='spw',
               minsnr=10,refantmode='strict',solint='inf',field=image_data['fieldlists'][i])
-      applycal(vis=vis,calwt=False,applymode='calonly',gaintable=vis+'.g',spwmap=32*[0],
+      applycal(vis=vis,calwt=False,applymode='calonly',gaintable=vis+'_'+i+'.g',spwmap=32*[0],
               interp='linear',field=image_data['fieldlists'][i])
 
 
@@ -75,7 +76,7 @@ for i in keylist:
        mosweight=False, usepointing=False, pblimit=-0.1, deconvolver='mtmfs',
        nterms=2, restoration=True, restoringbeam=['0.5arcsec','0.5arcsec','0.0deg'], pbcor=False,
        weighting='briggs', robust=1.0, npixels=0, niter=40000,
-       threshold=image_data['clean_depth_model'][i], nsigma=0.0, cyclefactor=3.0, interactive=False,
+       threshold=image_data['clean_depth'][i], nsigma=0.0, cyclefactor=3.0, interactive=False,
        fastnoise=True, restart=False, savemodel='none', calcres=True,
        calcpsf=True, parallel=True,usemask='auto-multithresh',
        pbmask=0.0,dogrowprune=True,minbeamfrac=0.3,sidelobethreshold=2.0,
@@ -93,7 +94,7 @@ for i in keylist:
        mosweight=False, usepointing=False, pblimit=-0.1, deconvolver='mtmfs',
        nterms=2, restoration=True, restoringbeam=['0.5arcsec','0.5arcsec','0.0deg'], pbcor=False,
        weighting='briggs', robust=1.0, npixels=0, niter=40000,
-       threshold=image_data['clean_depth_model'][i], nsigma=0.0, cyclefactor=3.0, interactive=False,
+       threshold=image_data['clean_depth'][i], nsigma=0.0, cyclefactor=3.0, interactive=False,
        fastnoise=True, restart=False, savemodel='none', calcres=True,
        calcpsf=True, parallel=True,usemask='auto-multithresh',
        pbmask=0.0,dogrowprune=True,minbeamfrac=0.3,sidelobethreshold=2.0,
