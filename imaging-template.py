@@ -55,7 +55,7 @@ for vis in vislist:
 for i in keylist:
    #self-calibration
    for vis in vislist:
-      os.system('rm -rf '+vis+'.g')
+      os.system('rm -rf '+vis+'_'+i+'.g')
       gaincal(vis=vis,caltable=vis+'_'+i+'.g',gaintype='G',calmode='p',refant='ea10,ea23,ea28',combine='spw',
               minsnr=10,refantmode='strict',solint='inf',field=image_data['fieldlists'][i])
       applycal(vis=vis,calwt=False,applymode='calonly',gaintable=vis+'_'+i+'.g',spwmap=32*[0],
