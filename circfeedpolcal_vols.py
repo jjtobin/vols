@@ -419,6 +419,21 @@ class Circfeedpolcal(polarization.Polarization):
         # fluxfieldnames = [amp.name for amp in fluxfields]
 
         standard_source_names, standard_source_fields = standard_sources(self.inputs.vis)
+        banddict = m.get_vla_baseband_spws(science_windows_only=True, return_select_list=False, warning=False)
+        observed_bands=banddict.keys()
+
+        if 'C' in observed_bands:
+           fluxdensity_polanglecal=[3.4830268587844526, 0, 0, 0]
+           spix_polanglecal=[-0.673,-0.089]
+           reffreq_polanglecal='6.0GHz'
+           polindex_polanglecal=[ 0.10475]
+           polangle_polanglecal=[-0.17846]
+        elif 'KU' in observed_bands:
+           fluxdensity_polanglecal=[1.8338, 0, 0, 0]
+           spix_polanglecal=[-0.727,-0.0734]
+           reffreq_polanglecal='15.0GHz'
+           polindex_polanglecal=[ 0.083]
+           polangle_polanglecal=[-0.2269]
 
         fluxcal = ''
         fluxcalfieldid = None
@@ -496,11 +511,11 @@ class Circfeedpolcal(polarization.Polarization):
                              'model': '',
                              'modimage': '',
                              'listmodels': False,
-                             'fluxdensity': [3.4830268587844526, 0, 0, 0],
-                             'spix': [-0.673,-0.089],
-                             'reffreq': '6.0GHz',
-                             'polindex':[ 0.1064823101,   0.0020207779,  -0.0204957814],
-                             'polangle': [-0.18624055,  0.00280311,  0.06106989],
+                             'fluxdensity': fluxdensity_polanglecal,
+                             'spix': spix_polanglecal,
+                             'reffreq': reffreq_polanglecal,
+                             'polindex': polindex_polanglecal,
+                             'polangle': polangle_polanglecal,
                              'rotmeas': 0,  # inside polangle
                              'fluxdict': {},
                              'useephemdir': False,

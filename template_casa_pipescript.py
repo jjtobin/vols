@@ -16,9 +16,10 @@ def detect_and_order_spws(msfile):
 
    cont_spwlist_no_order=''
    for i in range(len(names)):
-      if 'EVLA_C' in names[i]:
+      if ('EVLA_KU' in names[i]) or ('EVLA_C' in names[i]):
          if nchan[i] == 64:
-            cont_spwlist_no_order+=str(i)+','
+            spwnumber=names[i].split('#')[2]
+            cont_spwlist_no_order+=spwnumber+','
    cont_spwlist_no_order=cont_spwlist_no_order[:-1]
    freq_sort_order=np.argsort(freqs)
    freqs=freqs[freq_sort_order]
@@ -26,22 +27,22 @@ def detect_and_order_spws(msfile):
    nchan=nchan[freq_sort_order]
    bw=bw[freq_sort_order]
    chanwidth=bw/nchan
-   print(freq_sort_order)
+
    spwlist=''
    cont_spwlist=''
    line_spwlist=''
-   for i in range(len(freq_sort_order)):
-      if 'EVLA_C' in names[i]:
-         spwlist+=str(freq_sort_order[i])+','
+   for i in freq_sort_order:
+      if ('EVLA_KU' in names[i]) or ('EVLA_C' in names[i]):
+         spwlist+=str(i)+','
          if nchan[i] == 64:
-            cont_spwlist+=str(freq_sort_order[i])+','
+            spwnumber=names[i].split('#')[2]
+            cont_spwlist+=spwnumber+','
          else:
-            line_spwlist+=str(freq_sort_order[i])+','
+            spwnumber=names[i].split('#')[2]
+            line_spwlist+=spwnumber+','
    cont_spwlist=cont_spwlist[:-1]
    line_spwlist=line_spwlist[:-1]
-   print(spwlist)
    return cont_spwlist,line_spwlist,cont_spwlist_no_order
-    
       
 
 import os
