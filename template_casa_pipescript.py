@@ -79,7 +79,7 @@ try:
     hifv_solint(pipelinemode="automatic")
     hifv_fluxboot(pipelinemode="automatic")
     hifv_finalcals(pipelinemode="automatic")
-    hifv_circfeedpolcal(pipelinemode="automatic")
+    hifv_circfeedpolcal(clipminmax=[0.0,0.35])
     hifv_applycals(pipelinemode="automatic")
     hifv_checkflag(checkflagmode='target-vla')
     hifv_targetflag(intents='*TARGET*')
